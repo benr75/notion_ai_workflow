@@ -1,0 +1,15 @@
+# Weekly dependency PRs for the app's package manager and for the CI actions themselves.
+# Swap `bundler` for your ecosystem: npm, pip, gomod, cargo, composer, maven, gradle, nuget, docker, …
+# Dependabot PRs go through the same CI and human review as every other PR.
+version: 2
+updates:
+- package-ecosystem: bundler
+  directory: "/"
+  schedule:
+    interval: weekly
+  open-pull-requests-limit: 10
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: weekly
+  open-pull-requests-limit: 10

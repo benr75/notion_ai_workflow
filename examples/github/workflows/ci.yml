@@ -1,0 +1,38 @@
+# Stack-agnostic CI shape: run the same checks PROCESS.md requires locally, as separate
+# jobs on every PR and on pushes to the default branch. Replace the setup step and the
+# <PLACEHOLDER> commands for your stack. See ci-rails.yml for a filled-in example.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  security_scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # - <set up your language/runtime with dependency caching>
+      - name: Static security analysis
+        run: <SECURITY_SCAN_COMMAND>
+      - name: Dependency vulnerability audit
+        run: <DEPENDENCY_AUDIT_COMMAND>
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # - <set up your language/runtime with dependency caching>
+      - name: Lint
+        run: <LINT_COMMAND>
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # - <set up your language/runtime with dependency caching>
+      - name: Run tests
+        run: <TEST_COMMAND>
+        # env:
+        #   SOME_KEY: ${{ secrets.SOME_KEY }}   # secrets come from the repo's Actions secrets, never from the file
